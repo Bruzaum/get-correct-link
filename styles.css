@@ -1,0 +1,96 @@
+body {
+  font-family: "Satoshi-Black", sans-serif !important;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  min-height: 260px;
+  max-width: 100%;
+  background: linear-gradient(
+      180deg,
+      #0e1034,
+      rgba(14, 16, 52, 0.516) 64.09%,
+      rgba(14, 16, 52, 0)
+    ),
+    #58377b;
+}
+
+.container {
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  width: 500px;
+}
+
+.container-input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+h1 {
+  color: #fff;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  text-decoration: none;
+  text-transform: none;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 12px 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: white;
+}
+
+button {
+  background-color: #f87565;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  margin-top: 15px;
+}
+
+button:hover {
+  background-color: linear-gradient(to right, #8bc34a, #4caf50);
+}
+
+#resultado {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+}
+
+.tooltip {
+  visibility: hidden;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  padding: 5px 10px;
+  border-radius: 6px;
+  position: absolute;
+  top: 10%;
+  z-index: 1;
+  transform: translateY(50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip.show {
+  visibility: visible;
+  opacity: 1;
+}
