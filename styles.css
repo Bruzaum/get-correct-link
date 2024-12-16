@@ -5,13 +5,8 @@ body {
   margin-top: 10px;
   min-height: 260px;
   max-width: 100%;
-  background: linear-gradient(
-      180deg,
-      #0e1034,
-      rgba(14, 16, 52, 0.516) 64.09%,
-      rgba(14, 16, 52, 0)
-    ),
-    #58377b;
+  background: #191a1d;
+  caret-color: transparent;
 }
 
 .container {
@@ -32,7 +27,7 @@ h1 {
   color: #fff;
   font-size: 20px;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 500;
   text-decoration: none;
   text-transform: none;
 }
@@ -41,9 +36,10 @@ input[type="text"] {
   width: 100%;
   padding: 12px 10px;
   border: 1px solid #ddd;
-  border-radius: 5px;
+  border-radius: 100vw;
   font-size: 16px;
   transition: border-color 0.3s ease;
+  caret-color: black;
 }
 
 input[type="text"]:focus {
@@ -52,11 +48,11 @@ input[type="text"]:focus {
 }
 
 button {
-  background-color: #f87565;
-  color: white;
+  background-color: #fff250;
+  color: #0d111d;
   padding: 12px 20px;
   border: none;
-  border-radius: 5px;
+  border-radius: 100vw;
   cursor: pointer;
   font-size: 18px;
   transition: background-color 0.3s ease;
