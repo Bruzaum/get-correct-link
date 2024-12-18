@@ -5,15 +5,15 @@ body {
   margin-top: 10px;
   min-height: 260px;
   max-width: 100%;
-  background: linear-gradient(135deg, #374785 0%, #7395ae 50%, #557a95 100%);
-  color: #fff;
+  background: linear-gradient(135deg, #374785 0%, #14476c 50%, #2f4c61 100%);
 }
 
 .container {
   padding: 15px;
   border-radius: 10px;
   text-align: center;
-  width: 500px;
+  width: 85vw;
+  max-width: 500px;
 }
 
 h1 {

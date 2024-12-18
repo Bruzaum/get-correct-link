@@ -20,12 +20,11 @@ function createHighlightOverlay(element, errorType) {
   overlay.style.zIndex = '1000';
   document.body.appendChild(overlay);
 
-  // Add error type next to the link or button
   const errorLabel = document.createElement('span');
   errorLabel.className = 'error-type';
   errorLabel.style.position = 'absolute';
   errorLabel.style.top = `${window.scrollY + rect.top}px`;
-  errorLabel.style.left = `${window.scrollX + rect.left + rect.width + 5}px`; // Position to the right of the element
+  errorLabel.style.left = `${window.scrollX + rect.left + rect.width + 5}px`;
   errorLabel.style.fontSize = '12px';
   errorLabel.style.backgroundColor = '#ff4d4d';
   errorLabel.style.color = 'white';
@@ -51,7 +50,7 @@ function displayMessage(message, isError) {
   errorMessage.style.borderRadius = '5px';
   errorMessage.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.3)';
   errorMessage.style.zIndex = '1000';
-  errorMessage.innerHTML = message;  // Allow HTML content for line breaks
+  errorMessage.innerHTML = message;
   document.body.appendChild(errorMessage);
 
   if (!isError) {
@@ -64,21 +63,31 @@ function displayMessage(message, isError) {
 }
 
 function scanPage() {
-  const elements = document.querySelectorAll('a, button');
+  const elements = document.querySelectorAll('a, button, input[type="text"]');
   const whitespacePattern = /\s/;
   const countryCodePatterns = /\[?country-?code\]?|\[?countrycode\]?/i;
+  const urlPattern = /^(https?:\/\/)?([\w-]+\.)+[\w-]+(\/[\w-]*)*$/i;
   let whitespaceCount = 0;
   let countryCodeCount = 0;
+  let urlInputCount = 0;
 
   elements.forEach((el) => {
     const href = el.getAttribute('href');
-    if (href) {
+    if (el.tagName === 'A' && href) {
       if (whitespacePattern.test(href)) {
         whitespaceCount++;
         createHighlightOverlay(el, 'Espaço em branco');
       } else if (countryCodePatterns.test(href)) {
         countryCodeCount++;
         createHighlightOverlay(el, 'Country-code');
+      }
+    }
+
+    if (el.tagName === 'INPUT' && el.type === 'text') {
+      const value = el.value;
+      if (urlPattern.test(value) && whitespacePattern.test(value)) {
+        urlInputCount++;
+        createHighlightOverlay(el, 'Espaço em branco na URL');
       }
     }
   });
@@ -88,7 +97,10 @@ function scanPage() {
     message += `Links com espaço em branco: ${whitespaceCount}<br>`;
   }
   if (countryCodeCount > 0) {
-    message += `Links com "country-code": ${countryCodeCount}`;
+    message += `Links com "country-code": ${countryCodeCount}<br>`;
+  }
+  if (urlInputCount > 0) {
+    message += `Campos de texto com URL e espaço em branco: ${urlInputCount}`;
   }
 
   if (message) {
