@@ -3,67 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <title>Verificador de Links</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        text-align: center;
-        padding: 10px;
-        margin: 30px;
-        width: 70vw;
-      }
-      button {
-        font-size: medium;
-        padding: 10px 20px;
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-      button:hover {
-        background-color: #0056b3;
-      }
-
-      .highlight-box {
-        position: absolute;
-        border: 2px solid red;
-        background-color: rgba(255, 0, 0, 0.2);
-        pointer-events: none;
-        z-index: 999;
-      }
-
-
-      .highlight-overlay {
-        position: absolute;
-        background-color: rgba(255, 0, 0, 0.3); 
-        pointer-events: none; 
-        z-index: 1000;
-      }
-
-      .error-message {
-        position: fixed;
-        bottom: 10px;
-        right: 10px;
-        color: white;
-        padding: 10px 15px;
-        border-radius: 5px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-        font-size: 14px;
-        z-index: 1000;
-      }
-
-      .error-message.success {
-        background-color: #4caf50;
-      }
-
-      .error-message.error {
-        background-color: #ff4d4d; 
-      }
-    </style>
+    <link rel="stylesheet" href="styles.css"/>
   </head>
   <body>
-    <h1>Verificador de Links</h1>
-    <button id="scanButton">Start</button>
+    <div class="container">
+        <h1>Verificador de Links</h1>
+        <p>A ferramenta verifica e destaca links e CTAs com erros, fornecendo mensagens para correção.</p>  
+        <button id="scanButton">Buscar</button>
+    </div>
   </body>
   <script src="popup.js"></script>
 </html>

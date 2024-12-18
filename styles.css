@@ -1,0 +1,103 @@
+body {
+  font-family: "Satoshi-Black", sans-serif !important;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  min-height: 260px;
+  max-width: 100%;
+  background: linear-gradient(135deg, #374785 0%, #7395ae 50%, #557a95 100%);
+  color: #fff;
+}
+
+.container {
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  width: 500px;
+}
+
+h1 {
+  color: #fff;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  text-transform: none;
+  margin-bottom: 15px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+p {
+  color: #e0e0e0;
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  text-align: center;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+button {
+  background-color: #003cff;
+  color: white;
+  padding: 14px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 500;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  width: auto;
+  margin-top: 20px;
+  display: inline-block;
+}
+
+button:hover {
+  background-color: #304898;
+  transform: translateY(-3px);
+}
+
+button:active {
+  background-color: #0021cc;
+  transform: translateY(2px);
+}
+
+button:disabled {
+  background-color: #666;
+  cursor: not-allowed;
+}
+
+.highlight-box {
+  position: absolute;
+  border: 2px solid red;
+  background-color: rgba(255, 0, 0, 0.2);
+  pointer-events: none;
+  z-index: 999;
+}
+
+.highlight-overlay {
+  position: absolute;
+  background-color: rgba(255, 0, 0, 0.3);
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.error-message {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  font-size: 14px;
+  z-index: 1000;
+}
+
+.error-message.success {
+  background-color: #4caf50;
+}
+
+.error-message.error {
+  background-color: #ff4d4d;
+}
