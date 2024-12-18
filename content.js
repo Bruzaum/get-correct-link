@@ -65,6 +65,7 @@ function displayMessage(message, isError) {
 function scanPage() {
   const elements = document.querySelectorAll('a, button, input[type="text"], input[type="url"]');
   const whitespacePattern = /\s/;
+  const urlPattern = /^(https?:\/\/[^\s]+)$/i;
   const countryCodePatterns = /\[?country-?code\]?|\[?countrycode\]?/i;
   let whitespaceCount = 0;
   let countryCodeCount = 0;
@@ -82,11 +83,11 @@ function scanPage() {
       }
     }
 
-    if ((el.tagName === 'INPUT' && el.type === 'text') || (el.tagName === 'INPUT' && el.type === 'url')) {
+    if ((el.tagName === 'INPUT' && (el.type === 'text' || el.type === 'url'))) {
       const value = el.value;
-      if (whitespacePattern.test(value)) {
+      if (urlPattern.test(value) && whitespacePattern.test(value)) {
         textInputCount++;
-        createHighlightOverlay(el, 'Espaço em branco no input');
+        createHighlightOverlay(el, 'Espaço em branco na URL');
       }
     }
   });
@@ -99,7 +100,7 @@ function scanPage() {
     message += `Links com "country-code": ${countryCodeCount}<br>`;
   }
   if (textInputCount > 0) {
-    message += `Campos de texto com espaço em branco: ${textInputCount}`;
+    message += `Campos de entrada com URL e espaço em branco: ${textInputCount}`;
   }
 
   if (message) {
