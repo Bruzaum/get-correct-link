@@ -63,23 +63,30 @@ function displayMessage(message, isError) {
 }
 
 function scanPage() {
-  const elements = document.querySelectorAll('a, button, input[type="text"]');
+  const elements = document.querySelectorAll('a, button, input[type="text"], input[type="url"]');
   const whitespacePattern = /\s/;
-  const urlPattern = /^(https?:\/\/[^\s]+)$/i;
   const countryCodePatterns = /\[?country-?code\]?|\[?countrycode\]?/i;
   let whitespaceCount = 0;
   let countryCodeCount = 0;
   let textInputCount = 0;
 
   elements.forEach((el) => {
-    if (el.tagName === 'INPUT' && el.type === 'text') {
-      const value = el.value.trim();
+    const href = el.getAttribute('href');
+    if (el.tagName === 'A' && href) {
+      if (whitespacePattern.test(href)) {
+        whitespaceCount++;
+        createHighlightOverlay(el, 'Espaço em branco');
+      } else if (countryCodePatterns.test(href)) {
+        countryCodeCount++;
+        createHighlightOverlay(el, 'Country-code');
+      }
+    }
 
-      if (urlPattern.test(value)) {
-        if (whitespacePattern.test(value)) {
-          textInputCount++;
-          createHighlightOverlay(el, 'Espaço em branco na URL');
-        }
+    if ((el.tagName === 'INPUT' && el.type === 'text') || (el.tagName === 'INPUT' && el.type === 'url')) {
+      const value = el.value;
+      if (whitespacePattern.test(value)) {
+        textInputCount++;
+        createHighlightOverlay(el, 'Espaço em branco no input');
       }
     }
   });
@@ -92,7 +99,7 @@ function scanPage() {
     message += `Links com "country-code": ${countryCodeCount}<br>`;
   }
   if (textInputCount > 0) {
-    message += `Campos de entrada com URL válida e espaço em branco: ${textInputCount}`;
+    message += `Campos de texto com espaço em branco: ${textInputCount}`;
   }
 
   if (message) {
