@@ -109,4 +109,5 @@ function scanPage() {
   }
 }
 
+clearHighlights();
 scanPage();
