@@ -63,21 +63,43 @@ function displayMessage(message, isError) {
 }
 
 function scanPage() {
-  const elements = document.querySelectorAll('input[type="text"]');
+  const elements = document.querySelectorAll('a, button, input[type="text"], input[type="url"]');
   const whitespacePattern = /\s/;
+  const countryCodePatterns = /\[?country-?code\]?|\[?countrycode\]?/i;
   const urlPattern = /https|\/+/;
+  let whitespaceCount = 0;
+  let countryCodeCount = 0;
   let mixedErrorCount = 0;
 
   elements.forEach((el) => {
-    const value = el.value;
+    const href = el.getAttribute('href');
 
-    if (urlPattern.test(value) && whitespacePattern.test(value)) {
-      mixedErrorCount++;
-      createHighlightOverlay(el, 'https ou "/" com espaços');
+    if (el.tagName === 'A' && href) {
+      if (whitespacePattern.test(href)) {
+        whitespaceCount++;
+        createHighlightOverlay(el, 'Espaço em branco');
+      } else if (countryCodePatterns.test(href)) {
+        countryCodeCount++;
+        createHighlightOverlay(el, 'Country-code');
+      }
+    }
+
+    if ((el.tagName === 'INPUT' && el.type === 'text') || (el.tagName === 'INPUT' && el.type === 'url')) {
+      const value = el.value;
+      if (urlPattern.test(value) && whitespacePattern.test(value)) {
+        mixedErrorCount++;
+        createHighlightOverlay(el, 'https ou "/" com espaços');
+      }
     }
   });
 
   let message = '';
+  if (whitespaceCount > 0) {
+    message += `Links com espaço em branco: ${whitespaceCount}<br>`;
+  }
+  if (countryCodeCount > 0) {
+    message += `Links com "country-code": ${countryCodeCount}<br>`;
+  }
   if (mixedErrorCount > 0) {
     message += `Campos com "https" ou "/" e espaços: ${mixedErrorCount}`;
   }
