@@ -66,9 +66,10 @@ function scanPage() {
   const elements = document.querySelectorAll('a, button, input[type="text"], input[type="url"]');
   const whitespacePattern = /\s/;
   const countryCodePatterns = /\[?country-?code\]?|\[?countrycode\]?/i;
+  const urlPattern = /https|\/+/;
   let whitespaceCount = 0;
   let countryCodeCount = 0;
-  let textInputCount = 0;
+  let urlErrorCount = 0;
 
   elements.forEach((el) => {
     const href = el.getAttribute('href');
@@ -85,8 +86,10 @@ function scanPage() {
     if ((el.tagName === 'INPUT' && el.type === 'text') || (el.tagName === 'INPUT' && el.type === 'url')) {
       const value = el.value;
       if (whitespacePattern.test(value)) {
-        textInputCount++;
         createHighlightOverlay(el, 'Espaço em branco no input');
+      } else if (urlPattern.test(value)) {
+        urlErrorCount++;
+        createHighlightOverlay(el, 'Contém "https" ou "/"');
       }
     }
   });
@@ -98,8 +101,8 @@ function scanPage() {
   if (countryCodeCount > 0) {
     message += `Links com "country-code": ${countryCodeCount}<br>`;
   }
-  if (textInputCount > 0) {
-    message += `Campos de texto com espaço em branco: ${textInputCount}`;
+  if (urlErrorCount > 0) {
+    message += `Campos de texto com "https" ou "/": ${urlErrorCount}`;
   }
 
   if (message) {
