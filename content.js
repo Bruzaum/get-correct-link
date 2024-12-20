@@ -67,18 +67,26 @@ function scanPage() {
   const whitespacePattern = /\s/;
   const countryCodePatterns = /\[?country-?code\]?|\[?countrycode\]?/i;
   const urlPattern = /https|\/+/;
+
   let whitespaceCount = 0;
   let countryCodeCount = 0;
   let mixedErrorCount = 0;
+  let combinedErrorCount = 0;
 
   elements.forEach((el) => {
     const href = el.getAttribute('href');
 
     if (el.tagName === 'A' && href) {
-      if (whitespacePattern.test(href)) {
+      const hasWhitespace = whitespacePattern.test(href);
+      const hasCountryCode = countryCodePatterns.test(href);
+
+      if (hasWhitespace && hasCountryCode) {
+        combinedErrorCount++;
+        createHighlightOverlay(el, 'Country-code e Espaço');
+      } else if (hasWhitespace) {
         whitespaceCount++;
         createHighlightOverlay(el, 'Espaço em branco');
-      } else if (countryCodePatterns.test(href)) {
+      } else if (hasCountryCode) {
         countryCodeCount++;
         createHighlightOverlay(el, 'Country-code');
       }
@@ -94,6 +102,9 @@ function scanPage() {
   });
 
   let message = '';
+  if (combinedErrorCount > 0) {
+    message += `Links com "country-code" e Espaço: ${combinedErrorCount}<br>`;
+  }
   if (whitespaceCount > 0) {
     message += `Links com espaço em branco: ${whitespaceCount}<br>`;
   }
