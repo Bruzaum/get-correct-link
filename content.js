@@ -96,7 +96,7 @@ function scanPage() {
       const value = el.value;
       if (urlPattern.test(value) && whitespacePattern.test(value)) {
         mixedErrorCount++;
-        createHighlightOverlay(el, 'https ou "/" com espaços');
+        createHighlightOverlay(el, 'Campo com espaço em branco');
       }
     }
   });
@@ -112,7 +112,7 @@ function scanPage() {
     message += `Links com "country-code": ${countryCodeCount}<br>`;
   }
   if (mixedErrorCount > 0) {
-    message += `Campos com "https" ou "/" e espaços: ${mixedErrorCount}`;
+    message += `Campos com espaço em branco: ${mixedErrorCount}`;
   }
 
   if (message) {
